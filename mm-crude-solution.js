@@ -27,29 +27,6 @@ const numbers = [{
     'value': 1,
     'type': 'lit'
 }, ];
-
-function literal(value, iter) {
-    temp = value;
-    //For thousand
-    if (!numbers[iter - 1] && temp > 4) {
-        return romanNumbers(temp) + "." + numbers[iter].letter;
-    }
-    if (numbers[iter - 2] && (temp === 9)) {
-        return numbers[iter].letter + numbers[iter - 2].letter;
-    }
-    if (numbers[iter - 1] && (temp === 4)) {
-        return numbers[iter].letter + numbers[iter - 1].letter;
-    }
-    if (numbers[iter - 1] && ((numbers[iter - 1].value) < temp)) {
-        return numbers[iter - 1].letter + literal(temp - numbers[iter - 1].value, iter);
-    }
-    var tempret = ''
-    for (i = 0; i < temp; i++) {
-        tempret = tempret + numbers[iter].letter;
-    }
-    return tempret
-}
-
 function romanNumbers(value) {
     var result = ''
     var rest = value;
@@ -65,4 +42,30 @@ function romanNumbers(value) {
     }
     return result
 }
-console.log(romanNumbers(9))
+function literal(value, iter) {
+    temp = value;
+    //For thousand
+    if (!numbers[iter - 1] && temp > 4) {
+        return romanNumbers(temp) + "." + numbers[iter].letter;
+    }
+    if (numbers[iter - 2] && (temp === 9)) {
+        return numbers[iter].letter + numbers[iter - 2].letter;
+    }
+    if (numbers[iter - 1] && (temp === 4)) {
+        return numbers[iter].letter + numbers[iter - 1].letter;
+    }
+    if (numbers[iter - 1] && (temp === 5)) {
+        return numbers[iter - 1].letter;
+    }
+    if (numbers[iter - 1] && ((numbers[iter - 1].value) < temp)) {
+        return numbers[iter - 1].letter + literal(temp - numbers[iter - 1].value, iter);
+    }
+    var tempret = ''
+    for (i = 0; i < temp; i++) {
+        tempret = tempret + numbers[iter].letter;
+    }
+    return tempret
+}
+
+
+console.log(romanNumbers(5))
